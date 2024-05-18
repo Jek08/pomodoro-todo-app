@@ -1,11 +1,14 @@
 import React from "react";
+import TopBar from "../commons/ui/TopBar";
+import PomodoroTimer from "./widgets/PomodoroTimer";
 
 export default class PomodoroTodoScreen extends React.Component {
   render(): React.ReactNode {
     return (
-      <>
-        <h1>PomodoroTodoScreen</h1>
-      </>
+      <div className="container">
+        <TopBar className="navbar bg-body-tertiary" />
+        <PomodoroTimer />
+      </div>
     );
   }
 }
