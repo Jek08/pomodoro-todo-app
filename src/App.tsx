@@ -1,5 +1,5 @@
-import PomodoroScreen from "app/PomodoroScreen";
+import AppRouter from "router/AppRoutes";
 
 export default function App() {
-  return <PomodoroScreen />;
+  return <AppRouter />;
 }
