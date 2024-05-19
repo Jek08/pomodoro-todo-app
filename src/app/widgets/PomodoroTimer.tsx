@@ -1,5 +1,10 @@
+import ViewController from "commons/base/ViewController";
 import Card from "commons/ui/Card";
 import React from "react";
+import {
+  PomodoroTimerViewModel,
+  TimerState,
+} from "app/viewmodel/PomodoroTimerViewModel";
 
 class PomodoroCounter extends React.Component {
   render(): React.ReactNode {
@@ -16,32 +21,42 @@ class PomodoroCounter extends React.Component {
   }
 }
 
-class Timer extends React.Component {
+class Timer extends React.Component<{ time: string }> {
   render(): React.ReactNode {
     return (
       <div className="container">
-        <span>00:00:00</span>
+        <span>{this.props.time}</span>
       </div>
     );
   }
 }
 
-class TimerController extends React.Component {
-  render(): React.ReactNode {
-    return (
-      <div className="container">
-        <div className="row">
-          <span>Start</span>
-        </div>
-        <div className="row">
-          <span>Stop</span>
-        </div>
-      </div>
-    );
-  }
+interface TimerControllerProps {
+  viewModel: PomodoroTimerViewModel;
 }
 
-export default class PomodoroTimer extends React.Component {
+function TimerController({ viewModel }: TimerControllerProps) {
+  return (
+    <div className="container">
+      <div className="row">
+        <button onClick={viewModel.startTimer.bind(viewModel)}>Start</button>
+      </div>
+      <div className="row">
+        <span>Stop</span>
+      </div>
+    </div>
+  );
+}
+
+export default class PomodoroTimer extends ViewController<
+  {},
+  TimerState,
+  PomodoroTimerViewModel
+> {
+  constructor() {
+    super({}, new PomodoroTimerViewModel());
+  }
+
   render(): React.ReactNode {
     return (
       <Card id="PomodoroTimer" className="">
@@ -51,10 +66,10 @@ export default class PomodoroTimer extends React.Component {
               <PomodoroCounter />
             </div>
             <div className="col">
-              <Timer />
+              <Timer time={this.vmState.displayTime} />
             </div>
             <div className="col">
-              <TimerController />
+              <TimerController viewModel={this.viewModel} />
             </div>
           </div>
         </div>

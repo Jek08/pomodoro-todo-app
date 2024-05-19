@@ -1,7 +1,7 @@
 import React from "react";
 import ViewModel from "./ViewModel";
 
-interface ViewModelState<State, VM extends ViewModel<State>> {
+interface ViewControllerState<State, VM extends ViewModel<State>> {
   viewModel: VM;
 }
 
@@ -9,7 +9,7 @@ export default class ViewController<
   Props,
   State,
   VM extends ViewModel<State>,
-> extends React.Component<Props, ViewModelState<State, VM>> {
+> extends React.Component<Props, ViewControllerState<State, VM>> {
   constructor(props: Props, viewModel: VM) {
     super(props);
 
@@ -19,11 +19,11 @@ export default class ViewController<
 
     // callback 'action' is used to change the 'state' inside ViewModel
     // then we reassigned this React.Component with new state to trigger re-render
-    this.viewModel.emit = (action: (state: State) => void) => {
-      action(this.viewModel.state);
+    viewModel.emit = (action: (state: State) => void) => {
+      action(viewModel.state);
 
       this.setState({
-        viewModel: this.state.viewModel,
+        viewModel: viewModel,
       });
     };
   }
