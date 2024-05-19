@@ -9,6 +9,7 @@ type Time = {
 class TimerState {
   _time: Time = { h: 0, m: 0, s: 0 };
   count: number = 0;
+  isEnded: boolean = false;
 
   get time(): Time {
     return this._time;
@@ -46,6 +47,7 @@ class PomodoroTimerViewModel extends ViewModel<TimerState> {
     localStorage.setItem("timer", JSON.stringify(duration));
     this.emit((state) => {
       state.time = duration;
+      state.isEnded = false;
     });
   }
 
@@ -67,6 +69,7 @@ class PomodoroTimerViewModel extends ViewModel<TimerState> {
           this.restartTimer(this.pomodoroTime);
           this.emit((state) => {
             state.count++;
+            state.isEnded = true;
           });
           clearInterval(intervalId);
         }

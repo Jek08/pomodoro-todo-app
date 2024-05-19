@@ -5,6 +5,7 @@ import {
   PomodoroTimerViewModel,
   TimerState,
 } from "app/viewmodel/PomodoroTimerViewModel";
+import ModalDialog from "commons/ui/ModalDialog";
 
 class PomodoroCounter extends React.Component<{ count: number }> {
   render(): React.ReactNode {
@@ -57,10 +58,23 @@ export default class PomodoroTimer extends ViewController<
     super({}, new PomodoroTimerViewModel());
   }
 
+  handleClose() {
+    this.viewModel.emit((vmState) => {
+      vmState.isEnded = false;
+    });
+  }
+
   render(): React.ReactNode {
+    console.log(this.vmState.displayTime);
     return (
-      <Card id="PomodoroTimer" className="mb-3">
+      <Card id="PomodoroTimer" className="mb-5">
         <div className="container">
+          <ModalDialog
+            isShow={this.vmState.isEnded}
+            body="Take some rest!"
+            handleClose={this.handleClose.bind(this)}
+          />
+
           <div className="row align-items-center justify-content-around">
             <div className="col-3">
               <PomodoroCounter count={this.vmState.count} />
