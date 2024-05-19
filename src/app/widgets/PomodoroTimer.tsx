@@ -6,12 +6,12 @@ import {
   TimerState,
 } from "app/viewmodel/PomodoroTimerViewModel";
 
-class PomodoroCounter extends React.Component {
+class PomodoroCounter extends React.Component<{ count: number }> {
   render(): React.ReactNode {
     return (
-      <div className="container">
+      <div className="container-fluid text-center border">
         <div className="row">
-          <span>1</span>
+          <span>{this.props.count}</span>
         </div>
         <div className="row">
           <span>Pomodoro Count</span>
@@ -24,7 +24,7 @@ class PomodoroCounter extends React.Component {
 class Timer extends React.Component<{ time: string }> {
   render(): React.ReactNode {
     return (
-      <div className="container">
+      <div className="container-fluid text-center border">
         <span>{this.props.time}</span>
       </div>
     );
@@ -37,12 +37,12 @@ interface TimerControllerProps {
 
 function TimerController({ viewModel }: TimerControllerProps) {
   return (
-    <div className="container">
+    <div className="container-fluid text-center border">
       <div className="row">
         <button onClick={viewModel.startTimer.bind(viewModel)}>Start</button>
       </div>
       <div className="row">
-        <span>Stop</span>
+        <button onClick={viewModel.stopTimer.bind(viewModel)}>Stop</button>
       </div>
     </div>
   );
@@ -59,16 +59,16 @@ export default class PomodoroTimer extends ViewController<
 
   render(): React.ReactNode {
     return (
-      <Card id="PomodoroTimer" className="">
+      <Card id="PomodoroTimer" className="mb-3">
         <div className="container">
-          <div className="row">
-            <div className="col">
-              <PomodoroCounter />
+          <div className="row align-items-center justify-content-around">
+            <div className="col-3">
+              <PomodoroCounter count={this.vmState.count} />
             </div>
-            <div className="col">
+            <div className="col-6">
               <Timer time={this.vmState.displayTime} />
             </div>
-            <div className="col">
+            <div className="col-3">
               <TimerController viewModel={this.viewModel} />
             </div>
           </div>

@@ -19,8 +19,8 @@ const tasks = [
 export default class PomodoroTodoScreen extends React.Component {
   render(): React.ReactNode {
     return (
-      <div className="container">
-        <TopBar className="navbar bg-body-tertiary" />
+      <div className="container" id="PomodoroTodoScreen">
+        <TopBar />
         <PomodoroTimer />
         <TodoList tasks={tasks} />
       </div>

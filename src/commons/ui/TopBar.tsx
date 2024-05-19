@@ -1,13 +1,9 @@
 import React from "react";
 
-interface Props {
-  className: string;
-}
-
-export default class TopBar extends React.Component<Props> {
+export default class TopBar extends React.Component {
   render(): React.ReactNode {
     return (
-      <nav id="TopBar" className={this.props.className}>
+      <nav id="TopBar" className="navbar container-fluid">
         <div className="container-fluid">
           <a id="AppTitle" href="/" className="navbar-brand">
             Pomodoro & Todo
