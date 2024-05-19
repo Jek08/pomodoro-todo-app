@@ -10,28 +10,17 @@ interface Props {
 export default class ModalDialog extends React.Component<Props> {
   render(): React.ReactNode {
     return (
-      <div
-        className={"modal "}
-        style={{ display: "block", position: "initial" }}
-      >
-        <Modal show={this.props.isShow}>
-          <Modal.Dialog>
-            <Modal.Header closeButton>
-              <Modal.Title>Modal title</Modal.Title>
-            </Modal.Header>
+      <Modal centered={true} show={this.props.isShow}>
+        <Modal.Body>
+          <div className="text-center p-3 fs-2">{this.props.body}</div>
+        </Modal.Body>
 
-            <Modal.Body>
-              <span>{this.props.body}</span>
-            </Modal.Body>
-
-            <Modal.Footer>
-              <Button variant="secondary" onClick={this.props.handleClose}>
-                Close
-              </Button>
-            </Modal.Footer>
-          </Modal.Dialog>
-        </Modal>
-      </div>
+        <Modal.Footer>
+          <Button variant="secondary" onClick={this.props.handleClose}>
+            Close
+          </Button>
+        </Modal.Footer>
+      </Modal>
     );
   }
 }
