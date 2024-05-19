@@ -42,25 +42,23 @@ class TimerController extends React.Component {
 }
 
 export default class PomodoroTimer extends React.Component {
-  cardBody: React.ReactNode = (
-    <>
-      <div className="container">
-        <div className="row">
-          <div className="col">
-            <PomodoroCounter />
-          </div>
-          <div className="col">
-            <Timer />
-          </div>
-          <div className="col">
-            <TimerController />
+  render(): React.ReactNode {
+    return (
+      <Card id="PomodoroTimer" className="">
+        <div className="container">
+          <div className="row">
+            <div className="col">
+              <PomodoroCounter />
+            </div>
+            <div className="col">
+              <Timer />
+            </div>
+            <div className="col">
+              <TimerController />
+            </div>
           </div>
         </div>
-      </div>
-    </>
-  );
-
-  render(): React.ReactNode {
-    return <Card id="PomodoroTimer" className="" body={this.cardBody} />;
+      </Card>
+    );
   }
 }
