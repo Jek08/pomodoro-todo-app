@@ -3,13 +3,14 @@ import ViewModel from "commons/base/ViewModel";
 interface Task {
   id: number;
   title: string;
-  dueTime: Date;
+  dueTime?: Date;
   isDone: boolean;
 };
 
 class TodoListState {
   tasks: Task[] = new Array<Task>();
   isAllTaskDone: boolean = false;
+  showAddTaskDialog: boolean = false;
 }
 
 class TodoListViewModel extends ViewModel<TodoListState> {
@@ -17,31 +18,25 @@ class TodoListViewModel extends ViewModel<TodoListState> {
     super(new TodoListState());
   }
 
-  addTask(newTask: Task): Promise<Task> {
-    return new Promise((resolve, reject) => {
-      if (newTask.id) {
-        this.state.tasks.push(newTask);
-        resolve(newTask);
-      } else {
-        reject(`New Task doesn't have id. Task: ${newTask}`);
-      }
-    });
+  addTask(taskTitle: string){
+    const newTask: Task = {
+      id: this.state.tasks.length + 1,
+      title: taskTitle,
+      isDone: false
+    }
+    this.emit((currentState) => {
+      currentState.tasks.push(newTask);
+    })
   }
 
-  setTaskDone(id: number): Promise<Task> {
-    return new Promise((resolve, reject) => {
-      let taskId = -1;
-
-      for (let task of this.state.tasks) {
+  setTaskDone(id: number, isDone: boolean) {
+    this.emit((currentState) => {
+      currentState.tasks.map(task => {
         if (task.id === id) {
-          task.isDone = true;
-          taskId = id;
-          return resolve(task);
+          task.isDone = isDone;
         }
-      }
-
-      if (taskId === -1) return reject(`Id Task ${id} don't exist`);
-    });
+      })
+    })
   }
 }
 
