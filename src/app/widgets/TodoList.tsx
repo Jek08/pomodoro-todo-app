@@ -7,6 +7,7 @@ import ViewController from "commons/base/ViewController";
 import CardWithHeader from "commons/ui/CardWithHeader";
 import React from "react";
 import AddTaskDialog from "./AddTaskDialog";
+import FinalModalDialog from 'commons/ui/FinalModalDialog';
 
 interface Props {
   task: Task; 
@@ -50,11 +51,17 @@ export default class TodoList extends ViewController<
     super({}, new TodoListViewModel());
   }
 
-  handleShowDialog() {
+  handleShowAddTaskDialog() {
     this.viewModel.emit((currentState) => {
       currentState.showAddTaskDialog = currentState.showAddTaskDialog
         ? false
         : true;
+    });
+  }
+
+  handleCloseFinalDialog() {
+    this.viewModel.emit((currentState) => {
+      currentState.showFinalDialog = false;
     });
   }
 
@@ -71,7 +78,7 @@ export default class TodoList extends ViewController<
             <li className="list-group-item border-0 d-flex justify-content-center">
               <button
                 id="AddTaskButton"
-                onClick={this.handleShowDialog.bind(this)}
+                onClick={this.handleShowAddTaskDialog.bind(this)}
                 className="btn btn-primary"
               >
                 Add Task
@@ -81,9 +88,14 @@ export default class TodoList extends ViewController<
         </CardWithHeader>
         <AddTaskDialog
           show={this.vmState.showAddTaskDialog}
-          onHide={this.handleShowDialog.bind(this)}
+          onHide={this.handleShowAddTaskDialog.bind(this)}
           onAddBtnClick={this.viewModel.addTask.bind(this.viewModel)}
         />
+        <FinalModalDialog
+            isShow={this.vmState.showFinalDialog}
+            body="Take some rest!"
+            handleClose={this.handleCloseFinalDialog.bind(this)}
+          />
       </>
     );
   }
