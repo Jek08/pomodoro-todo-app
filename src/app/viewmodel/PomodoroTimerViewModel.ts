@@ -1,37 +1,9 @@
 import ViewModel from "commons/base/ViewModel";
+import TimerState from "./model/TimerState";
+import Time from "./model/Time";
 
-type Time = {
-  h: number;
-  m: number;
-  s: number;
-};
-
-class TimerState {
-  _time: Time = { h: 0, m: 0, s: 0 };
-  count: number = 0;
-  isEnded: boolean = false;
-
-  get time(): Time {
-    return this._time;
-  }
-
-  get displayTime() {
-    return `${this.time.h}:${this.time.m}:${this.time.s}`;
-  }
-
-  set time(val: string | Time) {
-    switch (typeof val) {
-      case "string":
-        this._time = JSON.parse(val) as Time;
-        break;
-      case "object":
-        this._time = val as Time;
-    }
-  }
-}
-
-class PomodoroTimerViewModel extends ViewModel<TimerState> {
-  pomodoroTime;
+export default class PomodoroTimerViewModel extends ViewModel<TimerState> {
+  pomodoroTime;   // default duration of one pomodoro cycle
 
   constructor() {
     super(new TimerState());
@@ -40,6 +12,7 @@ class PomodoroTimerViewModel extends ViewModel<TimerState> {
       m: 0,
       s: 5,
     };
+    this.state.time = this.pomodoroTime;
     this.restartTimer(this.pomodoroTime);
   }
 
@@ -101,5 +74,3 @@ class PomodoroTimerViewModel extends ViewModel<TimerState> {
     localStorage.removeItem("timer");
   }
 }
-
-export { TimerState, PomodoroTimerViewModel };

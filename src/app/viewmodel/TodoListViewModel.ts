@@ -1,20 +1,8 @@
 import ViewModel from "commons/base/ViewModel";
+import TodoListState from "./model/TodoListState";
+import Task from "./model/Task";
 
-interface Task {
-  id: number;
-  title: string;
-  dueTime?: Date;
-  isDone: boolean;
-}
-
-class TodoListState {
-  tasks: Task[] = new Array<Task>();
-  isAllTaskDone: boolean = false;
-  showAddTaskDialog: boolean = false;
-  showFinalDialog: boolean = false;
-}
-
-class TodoListViewModel extends ViewModel<TodoListState> {
+export default class TodoListViewModel extends ViewModel<TodoListState> {
   constructor() {
     super(new TodoListState());
   }
@@ -24,6 +12,7 @@ class TodoListViewModel extends ViewModel<TodoListState> {
       id: this.state.tasks.length + 1,
       title: taskTitle,
       isDone: false,
+      isArchived: false
     };
     this.emit((currentState) => {
       currentState.tasks.push(newTask);
@@ -37,6 +26,7 @@ class TodoListViewModel extends ViewModel<TodoListState> {
       currentState.tasks.forEach((task) => {
         if (task.id === id) {
           task.isDone = isDone;
+          task.isArchived = true;
         }
         isAllDone = isAllDone && task.isDone;
       });
@@ -48,5 +38,3 @@ class TodoListViewModel extends ViewModel<TodoListState> {
     });
   }
 }
-
-export { TodoListState, TodoListViewModel, type Task };

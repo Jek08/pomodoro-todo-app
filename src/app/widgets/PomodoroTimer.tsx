@@ -1,21 +1,19 @@
 import ViewController from "commons/base/ViewController";
 import Card from "commons/ui/Card";
 import React from "react";
-import {
-  PomodoroTimerViewModel,
-  TimerState,
-} from "app/viewmodel/PomodoroTimerViewModel";
 import FinalModalDialog from "commons/ui/FinalModalDialog";
+import PomodoroTimerViewModel from "app/viewmodel/PomodoroTimerViewModel";
+import TimerState from "app/viewmodel/model/TimerState";
 
 class PomodoroCounter extends React.Component<{ count: number }> {
   render(): React.ReactNode {
     return (
-      <div className="container-fluid text-center border">
+      <div className="container-fluid text-center">
         <div className="row">
-          <span>{this.props.count}</span>
+          <span className="fs-2">{this.props.count}</span>
         </div>
         <div className="row">
-          <span>Pomodoro Count</span>
+          <span className="fs-5 text-muted">Pomodoro Count</span>
         </div>
       </div>
     );
@@ -25,8 +23,8 @@ class PomodoroCounter extends React.Component<{ count: number }> {
 class Timer extends React.Component<{ time: string }> {
   render(): React.ReactNode {
     return (
-      <div className="container-fluid text-center border">
-        <span>{this.props.time}</span>
+      <div className="container-fluid text-center">
+        <span className="fs-1 fw-bold">{this.props.time}</span>
       </div>
     );
   }
@@ -38,12 +36,12 @@ interface TimerControllerProps {
 
 function TimerController({ viewModel }: TimerControllerProps) {
   return (
-    <div className="container-fluid text-center border">
+    <div className="container-fluid text-center">
       <div className="row">
-        <button onClick={viewModel.startTimer.bind(viewModel)}>Start</button>
+        <button onClick={viewModel.startTimer.bind(viewModel)} className="btn bg-green">Start</button>
       </div>
       <div className="row">
-        <button onClick={viewModel.stopTimer.bind(viewModel)}>Stop</button>
+        <button onClick={viewModel.stopTimer.bind(viewModel)} className="btn bg-red">Stop</button>
       </div>
     </div>
   );
