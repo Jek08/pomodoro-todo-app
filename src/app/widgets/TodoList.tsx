@@ -1,13 +1,11 @@
-import {
-  Task,
-  TodoListState,
-  TodoListViewModel,
-} from "app/viewmodel/TodoListViewModel";
 import ViewController from "commons/base/ViewController";
 import CardWithHeader from "commons/ui/CardWithHeader";
 import React from "react";
 import AddTaskDialog from "./AddTaskDialog";
 import FinalModalDialog from 'commons/ui/FinalModalDialog';
+import TodoListViewModel from "app/viewmodel/TodoListViewModel";
+import Task from "app/viewmodel/model/Task";
+import TodoListState from "app/viewmodel/model/TodoListState";
 
 interface Props {
   task: Task; 
