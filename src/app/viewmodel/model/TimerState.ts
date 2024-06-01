@@ -4,6 +4,7 @@ export default class TimerState {
   _time: Time = { h: 0, m: 0, s: 0 };
   count: number = 0;
   isEnded: boolean = false;
+  isRestingEnded: boolean = false;
 
   get time(): Time {
     return this._time;
