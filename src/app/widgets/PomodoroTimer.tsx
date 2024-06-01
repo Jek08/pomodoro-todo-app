@@ -59,6 +59,7 @@ export default class PomodoroTimer extends ViewController<
   handleClose() {
     this.viewModel.emit((vmState) => {
       vmState.isEnded = false;
+      vmState.isRestingEnded = false;
     });
   }
 
@@ -70,6 +71,17 @@ export default class PomodoroTimer extends ViewController<
           <FinalModalDialog
             isShow={this.vmState.isEnded}
             body="Take some rest!"
+            handleClose={this.handleClose.bind(this)}
+          />
+
+          <FinalModalDialog
+            isShow={this.vmState.isRestingEnded}
+            body={
+              <>
+                <p className="fs-1">Stop slackin', start workin'</p>
+                <p className="fs-2 fw-bold">Press Start!</p>
+              </>
+            }
             handleClose={this.handleClose.bind(this)}
           />
 
